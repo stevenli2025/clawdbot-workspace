@@ -46,14 +46,21 @@ function usage() {
   return `Usage:\n  bootstrap_skills_extraDirs.js [--config <path>] [--dry-run]\n\nEnsures OpenClaw config includes:\n  skills.load.extraDirs += ["/home/vtc/clawdbot-workspace/skills_global"]\n`;
 }
 
+function expandHome(p) {
+  if (!p) return p;
+  if (p === '~') return os.homedir();
+  if (p.startsWith('~/')) return path.join(os.homedir(), p.slice(2));
+  return p;
+}
+
 function resolveConfigPath(args) {
-  if (args.configPath) return args.configPath;
+  if (args.configPath) return expandHome(args.configPath);
   try {
     const out = execFileSync('openclaw', ['config', 'file'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
-    if (out) return out;
+    if (out) return expandHome(out);
   } catch {}
-  if (process.env.OPENCLAW_CONFIG_PATH) return process.env.OPENCLAW_CONFIG_PATH;
-  const stateDir = process.env.OPENCLAW_STATE_DIR || path.join(os.homedir(), '.openclaw');
+  if (process.env.OPENCLAW_CONFIG_PATH) return expandHome(process.env.OPENCLAW_CONFIG_PATH);
+  const stateDir = expandHome(process.env.OPENCLAW_STATE_DIR) || path.join(os.homedir(), '.openclaw');
   return path.join(stateDir, 'openclaw.json');
 }
 
