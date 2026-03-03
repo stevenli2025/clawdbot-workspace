@@ -85,19 +85,26 @@ Notes:
 `;
 }
 
+function expandHome(p) {
+  if (!p) return p;
+  if (p === '~') return os.homedir();
+  if (p.startsWith('~/')) return path.join(os.homedir(), p.slice(2));
+  return p;
+}
+
 function resolveConfigPath(args) {
-  if (args.configPath) return args.configPath;
+  if (args.configPath) return expandHome(args.configPath);
 
   // Best-effort: ask OpenClaw which config file is active.
   try {
     const out = execFileSync('openclaw', ['config', 'file'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
-    if (out) return out;
+    if (out) return expandHome(out);
   } catch {
     // ignore and fall back
   }
 
-  if (process.env.OPENCLAW_CONFIG_PATH) return process.env.OPENCLAW_CONFIG_PATH;
-  const stateDir = args.stateDir || process.env.OPENCLAW_STATE_DIR || path.join(os.homedir(), '.openclaw');
+  if (process.env.OPENCLAW_CONFIG_PATH) return expandHome(process.env.OPENCLAW_CONFIG_PATH);
+  const stateDir = expandHome(args.stateDir) || expandHome(process.env.OPENCLAW_STATE_DIR) || path.join(os.homedir(), '.openclaw');
   return path.join(stateDir, 'openclaw.json');
 }
 
