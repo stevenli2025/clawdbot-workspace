@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "exportedAt": "2026-03-03T06:09:30.829Z",
+  "count": 1,
+  "filters": {},
+  "memories": [
+    {
+      "id": "17a823ec-543f-4123-8b7a-7f8b5abd473c",
+      "text": "Conversation info (untrusted metadata):\n```json\n{\n  \"timestamp\": \"Tue 2026-03-03 04:38 UTC\"\n}\n```\n\n請幫我在以下頻道建立一個獨立session用於管理環境配置相關的設定，請幫我綁定session並設置為任何對話都能夠處發不用@機器人 伺服器id 1478240868648620142 頻道id 1478249411174858835",
+      "category": "other",
+      "scope": "agent:main",
+      "importance": 0.7,
+      "timestamp": 1772515170160,
+      "metadata": "{}"
+    }
+  ]
+}

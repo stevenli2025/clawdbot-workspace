@@ -1,0 +1,25 @@
+# OpenClaw local state / secrets (do not commit)
+.openclaw/
+
+# GitHub tokens / credentials (local only)
+.github_pat
+
+# Node / build artifacts
+**/node_modules/
+**/.DS_Store
+
+# Plugin runtime data (DB, backups, caches)
+plugins/**/data/
+plugins/**/backups/
+plugins/**/.cache/
+
+# LanceDB / memory databases (typically under ~/.openclaw/memory/*, kept out of repo)
+*.lancedb
+
+# Logs
+*.log
+/tmp/
+
+# Editor
+.vscode/
+.idea/

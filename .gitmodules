@@ -1,0 +1,3 @@
+[submodule "plugins/memory-lancedb-pro"]
+	path = plugins/memory-lancedb-pro
+	url = https://github.com/win4r/memory-lancedb-pro.git
